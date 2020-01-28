@@ -6,48 +6,8 @@ class Account(object):
         self.balance = balance
     
     def __str__(x):
-         return f' account details: Account number= {x.accountNumber}, name= {x.customerName}, balance={x.balance}'
-     
-        
-    def deposit(self, amount, date):
-        if amount>=0:
-            self.balance += amount
-            print(self)
-        else:
-            print(str(self)+"\n")
-            
-        print(str(self)+"\n")
-        
-    def withdraw(self, amount, date):
-        if self.balance >= amount:
-            self.balance -= amount
-        else:
-            print(str(self)+"\n")
-            class TransactionReport(object):
-     
- class TransactionReport(object):
-    
-     def __init__(self, date, account):
-        self.account = account
-        self.date= date 
-        
-     def __str__(y):
-        rep = ''
-        for a1 in y.translist:
-            rep += str(a1)
-        return "account={0}, translist{1}".format(y.account, rep)
-        
-class Bank(object):
-    def __init__(self,branch,accounts):
-        self.branch=branch
-        self.accounts= accounts 
-        
-    def __str__(y):
-        rep = ''
-        for s1 in y.accounts:
-            rep += str(s1)
-        return "branch={0}, accounts{1}".format(y.branch, rep)
-    
+         return f'\n account details: Account number= {x.accountNumber}, name= {x.customerName}, balance={x.balance}'
+                  
     def addaccount(self,acc):
         if acc not in self.accounts:
             self.accounts.append(acc)
@@ -58,15 +18,85 @@ class Bank(object):
         if acc in self.accounts:
             self.accounts.remove(acc)
         else:
-            print ("account already got removed")
-        
-    def transfer(self, acc1, acc2, tamount, date):
-        if tamount <= acc1.balance:
-            print(acc1, acc2)
-            print("\t\t " + str(acc1.customerName) + " transferring " + str(tamount) + " to " + str(acc2.customerName))
-            acc2.deposit(tamount,date)
-            acc1.withdraw(tamount,date)
-        else:
-            print("\t\t Insufficient Balance to transfer")
+            print ("account already got removed")  
             
- 
+ class Bank(object):
+      
+     def __init__(self,branches):
+        self.branches=branches
+        
+    def __str__(b):
+        rep = ''
+        for branch in b.branches:
+            rep += str(branch)
+        return "\n branches of this bank:{0}".format(rep)
+                 
+ class Branch(object):
+    
+    def __init__(self,accounts):
+        self.accounts=accounts
+
+    def __str__(y):
+        rep = ''
+        for customer in y.accounts:
+            rep += str(customer)
+        return "\n accounts of this branch:{0}".format(rep)
+   
+  class Transaction(object):
+    
+    def __init__(self,account,amount,date):
+        self.account=account
+        self.amount=amount
+        self.date=date
+        
+    def __str__(x):
+        return f'\n {x.account}, Amount= {x.amount}, Date={x.date}\n'
+    
+    def deposit(self, account, amount, time):
+        if amount > 0:
+            print (f'{account}')
+            
+            account.balance += amount
+            print (f'{account} // {self.amount} was deposited on {self.date} at {time}')
+        else:
+            print("error, deposit failed")
+
+    def withdraw(self, account, amount, time):
+        if account.balance >= amount:
+            print (f'{account}')
+            
+            account.balance -= amount
+            print( f'{account} // {self.amount} was withrawn on {self.date} at {time}')
+           
+        else:
+            print("error, withdraw failed")
+            
+    class Transfer(object):
+    
+    def __init__(self,acc1,acc2,amount,date):
+        self.acc1=acc1
+        self.acc2=acc2
+        self.amount=amount
+        self.date=date
+        
+    def transferfunction(self, acc1,acc2, amount, time):
+        transfer1= Transaction.deposit(self, acc1, amount, time)
+        transfer2= Transaction.withdraw(self, acc2, amount, time)
+      
+        
+  class transactionreport(object):
+    
+    def __init__(self,transactionList):
+        self.transactionList=transactionList
+        
+    def __str__(transactions):
+        rep = ''
+        for x in transactions.transactionList:
+            rep += str(x)
+        return "\n transactions:{0}".format(rep)
+    
+    def addtransaction(self,trans):
+        if trans not in self.transactionList:
+            self.transactionList.append(trans)
+        else:
+            print ("transaction already exists")
