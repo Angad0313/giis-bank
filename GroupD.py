@@ -84,7 +84,7 @@ class Account(object):
         transfer2= Transaction.withdraw(self, acc2, amount, time)
       
         
-  class transactionreport(object):
+  class Transactionreport(object):
     
     def __init__(self,transactionList):
         self.transactionList=transactionList
